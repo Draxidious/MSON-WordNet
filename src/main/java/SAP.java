@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.*;
 
+import java.util.Iterator;
+
 public class SAP {
     private Digraph graph;
     private BreadthFirstDirectedPaths pathsv;
@@ -36,17 +38,84 @@ public class SAP {
 
     // a common ancestor of v and w that participates in a shortest ancestral path; -1 if no such path
     public int ancestor(int v, int w) {
-        return 0;
+        pathsv = new BreadthFirstDirectedPaths(graph, v);
+        pathsw = new BreadthFirstDirectedPaths(graph, w);
+        int smallest = Integer.MAX_VALUE;
+        int anc = -1;
+        for (int i = 0; i < graph.V(); i++) {
+            if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
+                int num1 = pathsv.distTo(w);
+                int num2 = pathsw.distTo(v);
+                if (num1 + num2 < smallest) {
+                    smallest = num1 + num2;
+                    anc = i;
+                }
+            }
+        }
+        return anc;
     }
 
     // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
     public int length(Iterable v, Iterable w) {
-        return 0;
+        if(v==null || w == null) throw new IllegalArgumentException();
+        pathsv = new BreadthFirstDirectedPaths(graph, v);
+        pathsw = new BreadthFirstDirectedPaths(graph, w);
+        Iterator witer = w.iterator();
+        Iterator viter = v.iterator();
+        int anc = -1;
+        int smallest = Integer.MAX_VALUE;
+        while(witer.hasNext())
+        {
+            int nextw = (int) witer.next();
+            while(viter.hasNext())
+            {
+                int nextv = (int) viter.next();
+                for (int i = 0; i < graph.V(); i++) {
+                    if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
+                        int num1 = pathsv.distTo(nextw);
+                        int num2 = pathsw.distTo(nextv);
+                        if (num1 + num2 < smallest) {
+                            smallest = num1 + num2;
+                            anc = i;
+                        }
+                    }
+                }
+            }
+        }
+
+       return anc;
     }
 
     // a common ancestor that participates in shortest ancestral path; -1 if no such path
     public int ancestor(Iterable v, Iterable w) {
-        return 0;
+        pathsv = new BreadthFirstDirectedPaths(graph, v);
+        pathsw = new BreadthFirstDirectedPaths(graph, w);
+        Iterator witer = w.iterator();
+        Iterator viter = v.iterator();
+        int smallest = Integer.MAX_VALUE;
+        while(witer.hasNext())
+        {
+            int nextw = (int) witer.next();
+            while(viter.hasNext())
+            {
+                int nextv = (int) viter.next();
+                for (int i = 0; i < graph.V(); i++) {
+                    if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
+                        int num1 = pathsv.distTo(nextw);
+                        int num2 = pathsw.distTo(nextv);
+                        if (num1 + num2 < smallest) {
+                            smallest = num1 + num2;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (smallest == Integer.MAX_VALUE) {
+            return -1;
+        } else {
+            return smallest;
+        }
     }
 
     // do unit testing of this class
