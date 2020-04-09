@@ -20,10 +20,12 @@ public class SAP {
         int smallest = Integer.MAX_VALUE;
         for (int i = 0; i < graph.V(); i++) {
             if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
-                int num1 = pathsv.distTo(w);
-                int num2 = pathsw.distTo(v);
+                int num1 = pathsv.distTo(i);
+                int num2 = pathsw.distTo(i);
+
                 if (num1 + num2 < smallest) {
                     smallest = num1 + num2;
+
                 }
             }
         }
@@ -44,8 +46,8 @@ public class SAP {
         int anc = -1;
         for (int i = 0; i < graph.V(); i++) {
             if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
-                int num1 = pathsv.distTo(w);
-                int num2 = pathsw.distTo(v);
+                int num1 = pathsv.distTo(i);
+                int num2 = pathsw.distTo(i);
                 if (num1 + num2 < smallest) {
                     smallest = num1 + num2;
                     anc = i;
@@ -56,7 +58,7 @@ public class SAP {
     }
 
     // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
-    public int length(Iterable v, Iterable w) {
+    public int length(Iterable<Integer> v, Iterable<Integer> w) {
         if(v==null || w == null) throw new IllegalArgumentException();
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
@@ -72,8 +74,8 @@ public class SAP {
                 int nextv = (int) viter.next();
                 for (int i = 0; i < graph.V(); i++) {
                     if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
-                        int num1 = pathsv.distTo(nextw);
-                        int num2 = pathsw.distTo(nextv);
+                        int num1 = pathsv.distTo(i);
+                        int num2 = pathsw.distTo(i);
                         if (num1 + num2 < smallest) {
                             smallest = num1 + num2;
                             anc = i;
@@ -101,8 +103,8 @@ public class SAP {
                 int nextv = (int) viter.next();
                 for (int i = 0; i < graph.V(); i++) {
                     if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
-                        int num1 = pathsv.distTo(nextw);
-                        int num2 = pathsw.distTo(nextv);
+                        int num1 = pathsv.distTo(i);
+                        int num2 = pathsw.distTo(i);
                         if (num1 + num2 < smallest) {
                             smallest = num1 + num2;
                         }
