@@ -4,8 +4,7 @@ import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+
 
 public class WordNet {
     private HashMap<String, Bag<Integer>> nouns; // maps noun to Bag with ids

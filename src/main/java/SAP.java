@@ -1,4 +1,10 @@
-import edu.princeton.cs.algs4.*;
+
+
+import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Iterator;
 
@@ -68,10 +74,10 @@ public class SAP {
         int smallest = Integer.MAX_VALUE;
         while(witer.hasNext())
         {
-            int nextw = (int) witer.next();
+
             while(viter.hasNext())
             {
-                int nextv = (int) viter.next();
+
                 for (int i = 0; i < graph.V(); i++) {
                     if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
                         int num1 = pathsv.distTo(i);
@@ -97,10 +103,10 @@ public class SAP {
         int smallest = Integer.MAX_VALUE;
         while(witer.hasNext())
         {
-            int nextw = (int) witer.next();
+
             while(viter.hasNext())
             {
-                int nextv = (int) viter.next();
+
                 for (int i = 0; i < graph.V(); i++) {
                     if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
                         int num1 = pathsv.distTo(i);
