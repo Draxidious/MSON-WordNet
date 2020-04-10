@@ -62,8 +62,8 @@ public class SAP {
         if(v==null || w == null) throw new IllegalArgumentException();
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
-        Iterator witer = w.iterator();
-        Iterator viter = v.iterator();
+        Iterator<Integer> witer = w.iterator();
+        Iterator<Integer> viter = v.iterator();
         int anc = -1;
         int smallest = Integer.MAX_VALUE;
         while(witer.hasNext())
@@ -89,11 +89,11 @@ public class SAP {
     }
 
     // a common ancestor that participates in shortest ancestral path; -1 if no such path
-    public int ancestor(Iterable v, Iterable w) {
+    public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
-        Iterator witer = w.iterator();
-        Iterator viter = v.iterator();
+        Iterator<Integer> witer = w.iterator();
+        Iterator<Integer> viter = v.iterator();
         int smallest = Integer.MAX_VALUE;
         while(witer.hasNext())
         {
