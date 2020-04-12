@@ -68,6 +68,7 @@ public class SAP {
     // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) throw new IllegalArgumentException();
+        if (anyNull(v, w)) throw new IllegalArgumentException();
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
         int anc = -1;
@@ -87,29 +88,38 @@ public class SAP {
         return anc;
     }
 
+    private boolean anyNull(Iterable<Integer> v, Iterable<Integer> w) {
+
+        Iterator<Integer> viter = v.iterator();
+        Iterator<Integer> witer = v.iterator();
+        while (viter.hasNext()) {
+            if (viter.next() == null) return true;
+        }
+        while (witer.hasNext()) {
+            if (witer.next() == null) return true;
+        }
+        return false;
+    }
 
     // a common ancestor that participates in shortest ancestral path; -1 if no such path
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) throw new IllegalArgumentException();
+        if (anyNull(v, w)) throw new IllegalArgumentException();
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
-        Iterator<Integer> witer = w.iterator();
-        Iterator<Integer> viter = v.iterator();
         int smallest = Integer.MAX_VALUE;
-        while (witer.hasNext()) {
 
-            while (viter.hasNext()) {
 
-                for (int i = 0; i < graph.V(); i++) {
-                    if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
-                        int num1 = pathsv.distTo(i);
-                        int num2 = pathsw.distTo(i);
-                        if (num1 + num2 < smallest) {
-                            smallest = num1 + num2;
-                        }
-                    }
+        for (int i = 0; i < graph.V(); i++) {
+            if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
+                int num1 = pathsv.distTo(i);
+                int num2 = pathsw.distTo(i);
+                if (num1 + num2 < smallest) {
+                    smallest = num1 + num2;
                 }
             }
+
+
         }
 
         if (smallest == Integer.MAX_VALUE) {
