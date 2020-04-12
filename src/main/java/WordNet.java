@@ -1,9 +1,8 @@
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
-
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class WordNet {
@@ -11,7 +10,7 @@ public class WordNet {
     private HashMap<Integer, String> idmap; //maps id to synset
     private Digraph graph;
     private SAP sap;
-    private ArrayList<String> strnouns;
+    private HashSet<String> strnouns;
 
     // constructor takes the name of the two input files
     // going to need to find a way to associate an id with its synset
@@ -46,6 +45,7 @@ public class WordNet {
                 nouns.put(ns[i], bag);
             }
             idmap.put(id, synset);
+
             // for each noun in the synset
             // if that noun is not in your HashMap
             // create an entry with the id
@@ -69,11 +69,23 @@ public class WordNet {
             // (all hypernyms come after)
         }
         // creat a SAP object with your Digraph
-
+        if(!rootedDi()) throw new IllegalArgumentException();
         sap = new SAP(graph);
-        strnouns = new ArrayList<>(nouns.keySet());
+        strnouns = new HashSet<>(nouns.keySet());
     }
-
+    private boolean rootedDi()
+    {
+       int roots = 0;
+       for (int i = 0; i<graph.V();i++)
+       {
+           if(!graph.adj(i).iterator().hasNext())
+           {
+               roots++;
+               if(roots>1) return false;
+           }
+       }
+       return true;
+    }
     // returns all WordNet nouns
     public Iterable<String> nouns() {
        return strnouns;
