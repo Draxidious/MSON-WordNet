@@ -69,6 +69,7 @@ public class WordNet {
             // (all hypernyms come after)
         }
         // creat a SAP object with your Digraph
+
         sap = new SAP(graph);
         strnouns = new ArrayList<>(nouns.keySet());
     }
@@ -80,6 +81,7 @@ public class WordNet {
 
     // is the word a WordNet noun?
     public boolean isNoun(String word) {
+        if(word==null) throw new IllegalArgumentException();
         return strnouns.contains(word);
     }
 

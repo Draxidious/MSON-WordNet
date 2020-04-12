@@ -15,9 +15,15 @@ public class Outcast {
     for (int i = 0; i<nouns.length;i++)
     {
       int curmax = 0;
-      for (int j = i; j<nouns.length;j++)
+
+      // Fix illegal arg exceptions
+
+      for (int j = 0; j<nouns.length;j++)
       {
-        curmax += wordNet.distance(nouns[i],nouns[j]);
+        if(nouns[i]!=nouns[j])
+        {
+          curmax += wordNet.distance(nouns[i],nouns[j]);
+        }
       }
       if(curmax>maxdist)
       {
