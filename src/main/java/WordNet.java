@@ -84,7 +84,7 @@ public class WordNet {
                if(roots>1) return false;
            }
        }
-       return true;
+       return roots==1;
     }
     // returns all WordNet nouns
     public Iterable<String> nouns() {
