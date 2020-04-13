@@ -114,7 +114,7 @@ public class SAPTest {
     ArrayList<Integer> verticesW = new ArrayList<Integer>();
     verticesW.add(11);
     verticesW.add(2);
-    assertEquals(5, sapDigraph1.ancestor(verticesV, verticesW));
+    assertEquals(0, sapDigraph1.ancestor(verticesV, verticesW));
   }
 
   @Test
@@ -146,6 +146,6 @@ public class SAPTest {
     assertEquals(2,sapDigraph1.ancestor(verticesV, verticesW));
   }
 
-  
+
 
 }

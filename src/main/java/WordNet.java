@@ -32,6 +32,7 @@ public class WordNet {
     private HashSet<String> strnouns;
 
     public WordNet(String synsets, String hypernyms) {
+        if (synsets == null || hypernyms == null) throw new IllegalArgumentException();
         nouns = new HashMap<>();
         idmap = new HashMap<>();
         In reader = new In(synsets);
