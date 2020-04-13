@@ -1,5 +1,4 @@
 
-
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
@@ -8,24 +7,33 @@ import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Iterator;
 
+/**
+ * SAP Class.
+ */
 public class SAP {
+    /**
+     * Digraph in SAP.
+     */
     private Digraph graph;
+    /**
+     * BFDirected Path for v input.
+     */
     private BreadthFirstDirectedPaths pathsv;
+    /**
+     * BFDirecrted Path for w input.
+     */
     private BreadthFirstDirectedPaths pathsw;
 
-    // constructor takes a digraph (not necessarily a DAG)
     public SAP(Digraph G) {
 
         graph = new Digraph(G);
 
     }
 
-    // length of shortest ancestral path between v and w; -1 if no such path
-    // this implementation can work for all the methods
     public int length(int v, int w) {
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
-        if(v<0||v>graph.V()||w<0||w>graph.V()) throw new IllegalArgumentException();
+        if (v < 0 || v > graph.V() || w < 0 || w > graph.V()) throw new IllegalArgumentException();
         int smallest = Integer.MAX_VALUE;
         for (int i = 0; i < graph.V(); i++) {
             if (pathsw.hasPathTo(i) && pathsv.hasPathTo(i)) {
@@ -47,11 +55,10 @@ public class SAP {
 
     }
 
-    // a common ancestor of v and w that participates in a shortest ancestral path; -1 if no such path
     public int ancestor(int v, int w) {
         pathsv = new BreadthFirstDirectedPaths(graph, v);
         pathsw = new BreadthFirstDirectedPaths(graph, w);
-        if(v<0||v>graph.V()||w<0||w>graph.V()) throw new IllegalArgumentException();
+        if (v < 0 || v > graph.V() || w < 0 || w > graph.V()) throw new IllegalArgumentException();
         int smallest = Integer.MAX_VALUE;
         int anc = -1;
         for (int i = 0; i < graph.V(); i++) {
@@ -67,7 +74,6 @@ public class SAP {
         return anc;
     }
 
-    // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) throw new IllegalArgumentException();
         if (anyNull(v, w)) throw new IllegalArgumentException();
@@ -102,17 +108,16 @@ public class SAP {
         while (viter.hasNext()) {
             Integer next = viter.next();
             if (next == null) return true;
-            if(next<0||next>graph.V())return true;
+            if (next < 0 || next > graph.V()) return true;
         }
         while (witer.hasNext()) {
             Integer next = witer.next();
             if (next == null) return true;
-            if(next<0||next>graph.V()) return true;
+            if (next < 0 || next > graph.V()) return true;
         }
         return false;
     }
 
-    // a common ancestor that participates in shortest ancestral path; -1 if no such path
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) throw new IllegalArgumentException();
         if (anyNull(v, w)) throw new IllegalArgumentException();
@@ -135,7 +140,6 @@ public class SAP {
         return anc;
     }
 
-    // do unit testing of this class
     public static void main(String[] args) {
         In in = new In(args[0]);
         Digraph G = new Digraph(in);
